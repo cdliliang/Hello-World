@@ -162,5 +162,22 @@ public class UmpAlarmConfigController extends BaseController {
 				}
 		return toJSON(msg);	
 	}
+
+	public ModelAndView save(UmpAlarmConfig umpAlarmConfig){
+	    	LOGGER.info("statUmpAlarmConfig statPV=1 statUV=" + (true == true ?((SysUser)getLoginUser()).getName():null) + " statMOD=UmpAlarmConfigController.save ");
+				CallerInfo callerInfo = Profiler.registerInfo("jone-umpAlarmConfig.save", false, false);
+        Message msg = null;
+    try{
+    	int res = umpAlarmConfigService.saveOrUpdate(umpAlarmConfig);
+		msg  = res > 0 ? Message.success() : Message.failure();
+		
+    }catch(Exception e) {
+		LOGGER.error("失败:"+e.getMessage(),e);
+			Profiler.functionError(callerInfo);
+			}finally{
+					Profiler.registerInfoEnd(callerInfo);
+				}
+		return toJSON(msg);	
+	}
 	
 }
